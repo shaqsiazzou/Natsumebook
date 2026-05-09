@@ -9,7 +9,8 @@
   <link rel="preload" href="assets/videos/reveal-book.webm" as="video" type="video/webm">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@500&family=Noto+Serif+SC:wght@300;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@500&family=Noto+Serif+SC:wght@300;900&display=block" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@500&family=Noto+Serif+SC:wght@300;900&display=block" rel="stylesheet">
   <script>
     (() => {
       try {
@@ -497,6 +498,14 @@
       place-items: center;
       overflow: hidden;
       border-radius: 4px;
+      transition:
+        top 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        bottom 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .book-panel.is-image-stage .monster-slot {
+      top: 24.8%;
+      bottom: 4.8%;
     }
 
     .book-page {
@@ -539,22 +548,25 @@
     .monster-name-text {
       color: rgba(56, 43, 29, 0.72);
       font-family: "Kaisei Decol", "Noto Serif SC", "Songti SC", serif;
-      font-size: clamp(30px, 7.4vw, 46px);
+      font-size: clamp(52px, 14vw, 76px);
       font-weight: 500;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.18em;
       line-height: 1.22;
+      max-height: 100%;
       text-shadow:
         0 1px 0 rgba(255, 249, 232, 0.64),
         0 12px 28px rgba(70, 45, 24, 0.14);
+      word-break: keep-all;
       writing-mode: vertical-rl;
       text-orientation: mixed;
     }
 
     .monster-slot img {
       display: block;
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 20% 50%;
       forced-color-adjust: none;
     }
 
@@ -1190,9 +1202,19 @@
       document.body.classList.add("has-overlay");
     }
 
-    function revealMonsterImage() {
-      bookPanel.classList.remove("is-name-stage");
-      bookPanel.classList.add("is-image-stage");
+    function toggleBookPage() {
+      const shouldShowImage = bookPanel.classList.contains("is-name-stage");
+
+      bookPanel.classList.toggle("is-name-stage", !shouldShowImage);
+      bookPanel.classList.toggle("is-image-stage", shouldShowImage);
+    }
+
+    function warmNameFont() {
+      if (!document.fonts?.load) {
+        return;
+      }
+
+      document.fonts.load('500 64px "Kaisei Decol"', "妖怪名字ひしがき");
     }
 
     function skipVideo() {
@@ -1227,9 +1249,7 @@
         return;
       }
 
-      if (bookPanel.classList.contains("is-name-stage")) {
-        revealMonsterImage();
-      }
+      toggleBookPage();
     });
 
     if (themeToggle) {
@@ -1264,6 +1284,7 @@
     });
 
     setTheme(document.documentElement.dataset.theme || "dark", false);
+    warmNameFont();
     loadCatalog().then(renderCatalog);
 
     if ("requestIdleCallback" in window) {
