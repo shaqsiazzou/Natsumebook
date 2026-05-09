@@ -9,7 +9,7 @@
   <link rel="preload" href="assets/videos/reveal-book.webm" as="video" type="video/webm">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@500&family=Noto+Serif+SC:wght@300;900&display=swap" rel="stylesheet">
   <script>
     (() => {
       try {
@@ -454,6 +454,8 @@
       max-width: 560px;
       aspect-ratio: 2 / 3;
       box-shadow: none;
+      cursor: pointer;
+      perspective: 1200px;
     }
 
     .book-frame {
@@ -478,6 +480,11 @@
       line-height: 1.25;
       text-align: center;
       text-shadow: 0 1px 0 rgba(255, 247, 224, 0.55);
+      transition: opacity 360ms ease;
+    }
+
+    .book-panel.is-name-stage .book-title {
+      opacity: 0;
     }
 
     .monster-slot {
@@ -490,6 +497,57 @@
       place-items: center;
       overflow: hidden;
       border-radius: 4px;
+    }
+
+    .book-page {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      backface-visibility: hidden;
+      transition:
+        opacity 520ms ease,
+        transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+      transform-style: preserve-3d;
+    }
+
+    .book-name-page {
+      padding: 10% 8%;
+      background:
+        radial-gradient(ellipse at 52% 45%, rgba(255, 248, 226, 0.26), transparent 62%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(72, 50, 28, 0.04));
+    }
+
+    .book-image-page {
+      opacity: 0;
+      transform: rotateY(-96deg);
+      pointer-events: none;
+    }
+
+    .book-panel.is-image-stage .book-name-page {
+      opacity: 0;
+      transform: rotateY(96deg);
+      pointer-events: none;
+    }
+
+    .book-panel.is-image-stage .book-image-page {
+      opacity: 1;
+      transform: rotateY(0deg);
+      pointer-events: auto;
+    }
+
+    .monster-name-text {
+      color: rgba(56, 43, 29, 0.72);
+      font-family: "Kaisei Decol", "Noto Serif SC", "Songti SC", serif;
+      font-size: clamp(30px, 7.4vw, 46px);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      line-height: 1.22;
+      text-shadow:
+        0 1px 0 rgba(255, 249, 232, 0.64),
+        0 12px 28px rgba(70, 45, 24, 0.14);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
     }
 
     .monster-slot img {
@@ -930,12 +988,17 @@
   </div>
 
   <div class="overlay" id="imageOverlay" aria-label="妖怪图片">
-    <div class="book-panel">
+    <div class="book-panel is-name-stage" id="bookPanel">
       <button class="close-button" id="closeImage" type="button" aria-label="关闭图片">&times;</button>
       <img class="book-frame" src="assets/images/ui/book-frame.webp" alt="">
       <p class="book-title" id="imageTitle"></p>
       <div class="monster-slot">
-        <img id="monsterImage" src="assets/images/monsters/thumbs/placeholder.webp" alt="">
+        <div class="book-page book-name-page">
+          <span class="monster-name-text" id="monsterNameText"></span>
+        </div>
+        <div class="book-page book-image-page">
+          <img id="monsterImage" src="assets/images/monsters/thumbs/placeholder.webp" alt="">
+        </div>
       </div>
     </div>
   </div>
@@ -963,7 +1026,9 @@
     const videoOverlay = document.querySelector("#videoOverlay");
     const imageOverlay = document.querySelector("#imageOverlay");
     const videoPanel = document.querySelector(".video-panel");
+    const bookPanel = document.querySelector("#bookPanel");
     const imageTitle = document.querySelector("#imageTitle");
+    const monsterNameText = document.querySelector("#monsterNameText");
     const monsterImage = document.querySelector("#monsterImage");
     const closeVideo = document.querySelector("#closeVideo");
     const closeImage = document.querySelector("#closeImage");
@@ -971,6 +1036,7 @@
 
     const introVideo = document.querySelector("#introVideo");
     let selectedTitle = "";
+    let selectedName = "";
     let selectedImage = assets.placeholderMonster;
 
     function setTheme(theme, shouldStore = true) {
@@ -1001,6 +1067,7 @@
       return {
         episode,
         title: episodeData.title || `第 ${season} 季 第 ${episode} 集`,
+        name: episodeData.name || "",
         thumbnail: episodeData.thumbnail || assets.placeholderMonsterThumb,
         image: episodeData.image || assets.placeholderMonster
       };
@@ -1013,6 +1080,7 @@
         return {
           episode,
           title: `第 ${season} 季 第 ${episode} 集`,
+          name: "",
           thumbnail: assets.placeholderMonsterThumb,
           image: assets.placeholderMonster
         };
@@ -1082,6 +1150,7 @@
 
     function playEpisode(episodeData) {
       selectedTitle = episodeData.title;
+      selectedName = episodeData.name || "";
       selectedImage = episodeData.image;
       introVideo.pause();
 
@@ -1113,9 +1182,17 @@
     function showMonsterImage() {
       videoOverlay.classList.remove("is-open");
       imageTitle.textContent = selectedTitle;
+      monsterNameText.textContent = selectedName || selectedTitle;
       monsterImage.src = selectedImage;
+      bookPanel.classList.remove("is-image-stage");
+      bookPanel.classList.add("is-name-stage");
       imageOverlay.classList.add("is-open");
       document.body.classList.add("has-overlay");
+    }
+
+    function revealMonsterImage() {
+      bookPanel.classList.remove("is-name-stage");
+      bookPanel.classList.add("is-image-stage");
     }
 
     function skipVideo() {
@@ -1134,6 +1211,8 @@
 
     function closeImageOverlay() {
       imageOverlay.classList.remove("is-open");
+      bookPanel.classList.remove("is-image-stage");
+      bookPanel.classList.add("is-name-stage");
       if (!videoOverlay.classList.contains("is-open")) {
         document.body.classList.remove("has-overlay");
       }
@@ -1143,12 +1222,25 @@
     closeVideo.addEventListener("click", closeVideoOverlay);
     closeImage.addEventListener("click", closeImageOverlay);
     videoPanel.addEventListener("click", skipVideo);
+    bookPanel.addEventListener("click", (event) => {
+      if (event.target.closest(".close-button")) {
+        return;
+      }
+
+      if (bookPanel.classList.contains("is-name-stage")) {
+        revealMonsterImage();
+      }
+    });
 
     if (themeToggle) {
       themeToggle.addEventListener("click", toggleTheme);
     }
 
     closeVideo.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
+    closeImage.addEventListener("click", (event) => {
       event.stopPropagation();
     });
 

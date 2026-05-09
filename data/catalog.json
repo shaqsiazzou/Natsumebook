@@ -4,81 +4,94 @@
     "episodes": [
       {
         "episode": 1,
-        "title": "第 1 季 第 1 集",
+        "title": "第 1 集 菱垣",
         "thumbnail": "assets/images/monsters/thumbs/season-01/episode-01.webp?v=1778341756280",
-        "image": "assets/images/monsters/season-01/episode-01.webp?v=1778341756280"
+        "image": "assets/images/monsters/season-01/episode-01.webp?v=1778341756280",
+        "name": "菱垣"
       },
       {
         "episode": 2,
         "title": "第 1 季 第 2 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 3,
         "title": "第 1 季 第 3 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 4,
         "title": "第 1 季 第 4 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 5,
         "title": "第 1 季 第 5 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 6,
         "title": "第 1 季 第 6 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 7,
         "title": "第 1 季 第 7 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 8,
         "title": "第 1 季 第 8 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 9,
         "title": "第 1 季 第 9 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 10,
         "title": "第 1 季 第 10 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 11,
         "title": "第 1 季 第 11 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 12,
         "title": "第 1 季 第 12 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 13,
         "title": "第 1 季 第 13 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       }
     ]
   },
@@ -89,79 +102,92 @@
         "episode": 1,
         "title": "第 2 季 第 1 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 2,
         "title": "第 2 季 第 2 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 3,
         "title": "第 2 季 第 3 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 4,
         "title": "第 2 季 第 4 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 5,
         "title": "第 2 季 第 5 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 6,
         "title": "第 2 季 第 6 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 7,
         "title": "第 2 季 第 7 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 8,
         "title": "第 2 季 第 8 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 9,
         "title": "第 2 季 第 9 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 10,
         "title": "第 2 季 第 10 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 11,
         "title": "第 2 季 第 11 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 12,
         "title": "第 2 季 第 12 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 13,
         "title": "第 2 季 第 13 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       }
     ]
   },
@@ -172,79 +198,92 @@
         "episode": 1,
         "title": "第 3 季 第 1 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 2,
         "title": "第 3 季 第 2 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 3,
         "title": "第 3 季 第 3 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 4,
         "title": "第 3 季 第 4 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 5,
         "title": "第 3 季 第 5 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 6,
         "title": "第 3 季 第 6 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 7,
         "title": "第 3 季 第 7 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 8,
         "title": "第 3 季 第 8 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 9,
         "title": "第 3 季 第 9 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 10,
         "title": "第 3 季 第 10 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 11,
         "title": "第 3 季 第 11 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 12,
         "title": "第 3 季 第 12 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 13,
         "title": "第 3 季 第 13 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       }
     ]
   },
@@ -255,79 +294,92 @@
         "episode": 1,
         "title": "第 4 季 第 1 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 2,
         "title": "第 4 季 第 2 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 3,
         "title": "第 4 季 第 3 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 4,
         "title": "第 4 季 第 4 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 5,
         "title": "第 4 季 第 5 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 6,
         "title": "第 4 季 第 6 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 7,
         "title": "第 4 季 第 7 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 8,
         "title": "第 4 季 第 8 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 9,
         "title": "第 4 季 第 9 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 10,
         "title": "第 4 季 第 10 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 11,
         "title": "第 4 季 第 11 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 12,
         "title": "第 4 季 第 12 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 13,
         "title": "第 4 季 第 13 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       }
     ]
   },
@@ -338,67 +390,78 @@
         "episode": 1,
         "title": "第 5 季 第 1 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 2,
         "title": "第 5 季 第 2 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 3,
         "title": "第 5 季 第 3 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 4,
         "title": "第 5 季 第 4 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 5,
         "title": "第 5 季 第 5 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 6,
         "title": "第 5 季 第 6 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 7,
         "title": "第 5 季 第 7 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 8,
         "title": "第 5 季 第 8 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 9,
         "title": "第 5 季 第 9 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 10,
         "title": "第 5 季 第 10 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 11,
         "title": "第 5 季 第 11 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       }
     ]
   },
@@ -409,67 +472,78 @@
         "episode": 1,
         "title": "第 6 季 第 1 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 2,
         "title": "第 6 季 第 2 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 3,
         "title": "第 6 季 第 3 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 4,
         "title": "第 6 季 第 4 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 5,
         "title": "第 6 季 第 5 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 6,
         "title": "第 6 季 第 6 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 7,
         "title": "第 6 季 第 7 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 8,
         "title": "第 6 季 第 8 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 9,
         "title": "第 6 季 第 9 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 10,
         "title": "第 6 季 第 10 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 11,
         "title": "第 6 季 第 11 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       }
     ]
   },
@@ -480,73 +554,85 @@
         "episode": 1,
         "title": "第 7 季 第 1 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 2,
         "title": "第 7 季 第 2 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 3,
         "title": "第 7 季 第 3 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 4,
         "title": "第 7 季 第 4 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 5,
         "title": "第 7 季 第 5 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 6,
         "title": "第 7 季 第 6 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 7,
         "title": "第 7 季 第 7 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 8,
         "title": "第 7 季 第 8 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 9,
         "title": "第 7 季 第 9 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 10,
         "title": "第 7 季 第 10 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 11,
         "title": "第 7 季 第 11 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       },
       {
         "episode": 12,
         "title": "第 7 季 第 12 集",
         "thumbnail": "assets/images/monsters/thumbs/placeholder.webp",
-        "image": "assets/images/monsters/placeholder.png"
+        "image": "assets/images/monsters/placeholder.png",
+        "name": ""
       }
     ]
   }

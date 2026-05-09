@@ -289,7 +289,7 @@
     <header class="topbar">
       <div class="brand">
         <h1>友人帐图鉴管理</h1>
-        <p>按单集编辑标题和图片</p>
+        <p>按单集编辑标题、名字和图片</p>
       </div>
       <button type="button" id="logoutButton">退出</button>
     </header>
@@ -312,12 +312,17 @@
               </div>
 
               <div class="field">
+                <label for="nameInput">妖怪名字</label>
+                <input id="nameInput" name="name" type="text" placeholder="例如：菱垣">
+              </div>
+
+              <div class="field">
                 <label for="imageInput">这一集的图片</label>
                 <input id="imageInput" name="image" type="file" accept="image/png,image/jpeg,image/webp,image/gif">
               </div>
 
               <div class="actions">
-                <button type="submit">保存文字</button>
+                <button type="submit">保存文字和名字</button>
                 <button type="button" id="uploadButton">上传图片</button>
               </div>
               <p class="status" id="editStatus"></p>
@@ -343,6 +348,7 @@
     const editorTitle = document.querySelector("#editorTitle");
     const editForm = document.querySelector("#editForm");
     const titleInput = document.querySelector("#titleInput");
+    const nameInput = document.querySelector("#nameInput");
     const imageInput = document.querySelector("#imageInput");
     const imagePreview = document.querySelector("#imagePreview");
     const imagePath = document.querySelector("#imagePath");
@@ -399,7 +405,10 @@
       const response = await fetch(endpoint(selected), {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: titleInput.value })
+        body: JSON.stringify({
+          title: titleInput.value,
+          name: nameInput.value
+        })
       });
 
       const result = await response.json();
@@ -410,9 +419,10 @@
       }
 
       selected.episode.title = result.episode.title;
-      setStatus(editStatus, "文字已保存");
+      selected.episode.name = result.episode.name;
       renderNav();
       selectEpisode(selected.season.season, selected.episode.episode);
+      setStatus(editStatus, "文字和名字已保存");
     });
 
     uploadButton.addEventListener("click", async () => {
@@ -439,9 +449,9 @@
       selected.episode.image = result.episode.image;
       selected.episode.thumbnail = result.episode.thumbnail;
       imageInput.value = "";
-      setStatus(editStatus, `图片已上传，缩略图约 ${formatBytes(result.sizes.thumbnail)}，主图约 ${formatBytes(result.sizes.image)}`);
       renderNav();
       selectEpisode(selected.season.season, selected.episode.episode);
+      setStatus(editStatus, `图片已上传，缩略图约 ${formatBytes(result.sizes.thumbnail)}，主图约 ${formatBytes(result.sizes.image)}`);
     });
 
     async function hasSession() {
@@ -502,6 +512,7 @@
       selected = { season, episode };
       editorTitle.textContent = `第 ${season.season} 季 第 ${episode.episode} 集`;
       titleInput.value = episode.title;
+      nameInput.value = episode.name || "";
       imagePreview.src = episode.thumbnail;
       imagePath.textContent = episode.image;
       setStatus(editStatus, "");

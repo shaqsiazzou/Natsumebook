@@ -65,6 +65,7 @@ app.patch("/api/catalog/season/:season/episode/:episode", requireAdmin, async (r
   }
 
   const title = String(request.body?.title || "").trim();
+  const name = String(request.body?.name || "").trim();
 
   if (!title) {
     response.status(400).json({ error: "标题不能为空" });
@@ -72,6 +73,7 @@ app.patch("/api/catalog/season/:season/episode/:episode", requireAdmin, async (r
   }
 
   match.episode.title = title;
+  match.episode.name = name;
   await writeCatalog(catalog);
   response.json({ ok: true, episode: match.episode });
 });
