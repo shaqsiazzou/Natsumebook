@@ -5,7 +5,8 @@
 ## 目录
 
 ```text
-transparent-video-demo.html       前台页面入口
+index.html                        前台页面入口
+transparent-video-demo.html       旧链接跳转兼容页
 admin.html                        管理后台页面
 server.mjs                        Node/Express 后端与上传接口
 data/catalog.json                 图鉴数据
@@ -27,8 +28,8 @@ npm start
 访问：
 
 ```text
-http://127.0.0.1:7000/transparent-video-demo.html
-http://127.0.0.1:7000/transparent-video-demo.html/admin
+http://127.0.0.1:7000/
+http://127.0.0.1:7000/admin
 ```
 
 ## 环境变量

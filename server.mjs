@@ -24,8 +24,12 @@ const sessionToken = crypto.createHmac("sha256", adminPassword).update("nazumi-a
 
 app.use(express.json({ limit: "1mb" }));
 
-app.get("/transparent-video-demo.html/admin", (_request, response) => {
+app.get(["/admin", "/transparent-video-demo.html/admin"], (_request, response) => {
   response.sendFile(path.join(__dirname, "admin.html"));
+});
+
+app.get("/transparent-video-demo.html", (_request, response) => {
+  response.redirect(301, "/");
 });
 
 app.post("/api/admin/login", (request, response) => {
@@ -158,7 +162,8 @@ app.post(
 app.use(express.static(__dirname));
 
 app.listen(port, host, () => {
-  console.log(`Natsumebook admin server: http://${host}:${port}/transparent-video-demo.html/admin`);
+  console.log(`Natsumebook server: http://${host}:${port}/`);
+  console.log(`Natsumebook admin: http://${host}:${port}/admin`);
 });
 
 async function loadEnv() {
