@@ -1,0 +1,7 @@
+node_modules/
+.env
+.admin.pid
+logs/
+*.tmp
+*.bak-*
+assets/videos/reveal-book-vp9-crf10.webm
