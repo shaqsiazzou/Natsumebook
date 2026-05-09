@@ -158,7 +158,7 @@ app.post(
 app.use(express.static(__dirname));
 
 app.listen(port, host, () => {
-  console.log(`Nazumi admin server: http://${host}:${port}/transparent-video-demo.html/admin`);
+  console.log(`Natsumebook admin server: http://${host}:${port}/transparent-video-demo.html/admin`);
 });
 
 async function loadEnv() {

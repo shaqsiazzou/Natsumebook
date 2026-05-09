@@ -4,7 +4,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 if [[ ! -f .admin.pid ]]; then
-  echo "Nazumi admin is not running."
+  echo "Natsumebook admin is not running."
   exit 0
 fi
 
@@ -12,9 +12,9 @@ pid="$(cat .admin.pid)"
 
 if kill -0 "$pid" 2>/dev/null; then
   kill "$pid"
-  echo "Nazumi admin stopped."
+  echo "Natsumebook admin stopped."
 else
-  echo "Nazumi admin process was not running."
+  echo "Natsumebook admin process was not running."
 fi
 
 rm -f .admin.pid
