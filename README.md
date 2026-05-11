@@ -52,3 +52,13 @@ PORT=7000
 - Cloudflare Pages：前台静态页面
 - Koyeb：Node 后端
 - Supabase：后续迁移图鉴数据与图片存储
+
+## Supabase 初始化
+
+在 Supabase Dashboard 打开 SQL Editor，新建查询，粘贴并运行：
+
+```text
+supabase/schema.sql
+```
+
+脚本会创建 `episodes` 表、`monster-images` Storage bucket，并初始化 7 季 86 集占位数据。
