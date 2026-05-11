@@ -38,7 +38,12 @@ http://127.0.0.1:7000/admin
 ADMIN_PASSWORD=后台登录密码
 HOST=0.0.0.0
 PORT=7000
+SUPABASE_URL=Supabase Project URL
+SUPABASE_SERVICE_ROLE_KEY=Supabase service_role key
+SUPABASE_STORAGE_BUCKET=monster-images
 ```
+
+配置 Supabase 变量后，后端会读写 Supabase `episodes` 表，并把后台上传的图片保存到 Supabase Storage。未配置时会继续使用本地 `data/catalog.json` 和 `assets/images/monsters/`。
 
 ## 后台功能
 

@@ -7,17 +7,23 @@ import multer from "multer";
 import sharp from "sharp";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+await loadEnv();
+
 const app = express();
 const port = Number(process.env.PORT || 7000);
 const host = process.env.HOST || "0.0.0.0";
 const catalogPath = path.join(__dirname, "data/catalog.json");
+const placeholderMonster = "assets/images/monsters/placeholder.png";
+const placeholderMonsterThumb = "assets/images/monsters/thumbs/placeholder.webp";
+const supabaseUrl = String(process.env.SUPABASE_URL || "").replace(/\/+$/, "");
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
+const supabaseStorageBucket = process.env.SUPABASE_STORAGE_BUCKET || "monster-images";
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 30 * 1024 * 1024 }
 });
 const supportedImageTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
-
-await loadEnv();
 
 const adminPassword = process.env.ADMIN_PASSWORD || "960718";
 const sessionToken = crypto.createHmac("sha256", adminPassword).update("nazumi-admin").digest("hex");
@@ -51,19 +57,12 @@ app.get("/api/admin/session", requireAdmin, (_request, response) => {
   response.json({ ok: true });
 });
 
-app.get("/api/catalog", async (_request, response) => {
+app.get("/api/catalog", asyncHandler(async (_request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
   response.json(await readCatalog());
-});
+}));
 
-app.patch("/api/catalog/season/:season/episode/:episode", requireAdmin, async (request, response) => {
-  const catalog = await readCatalog();
-  const match = findEpisode(catalog, request.params);
-
-  if (!match) {
-    response.status(404).json({ error: "没有找到这一集" });
-    return;
-  }
-
+app.patch("/api/catalog/season/:season/episode/:episode", requireAdmin, asyncHandler(async (request, response) => {
   const title = String(request.body?.title || "").trim();
   const name = String(request.body?.name || "").trim();
 
@@ -72,17 +71,21 @@ app.patch("/api/catalog/season/:season/episode/:episode", requireAdmin, async (r
     return;
   }
 
-  match.episode.title = title;
-  match.episode.name = name;
-  await writeCatalog(catalog);
-  response.json({ ok: true, episode: match.episode });
-});
+  const episode = await updateEpisodeText(request.params, { title, name });
+
+  if (!episode) {
+    response.status(404).json({ error: "没有找到这一集" });
+    return;
+  }
+
+  response.json({ ok: true, episode });
+}));
 
 app.post(
   "/api/catalog/season/:season/episode/:episode/image",
   requireAdmin,
   upload.single("image"),
-  async (request, response) => {
+  asyncHandler(async (request, response) => {
     if (!request.file) {
       response.status(400).json({ error: "请选择图片" });
       return;
@@ -93,8 +96,7 @@ app.post(
       return;
     }
 
-    const catalog = await readCatalog();
-    const match = findEpisode(catalog, request.params);
+    const match = await readEpisode(request.params);
 
     if (!match) {
       response.status(404).json({ error: "没有找到这一集" });
@@ -104,68 +106,47 @@ app.post(
     const seasonName = `season-${pad(match.season.season)}`;
     const episodeBaseName = `episode-${pad(match.episode.episode)}`;
     const episodeName = `${episodeBaseName}.webp`;
-    const imageDir = path.join(__dirname, "assets/images/monsters", seasonName);
-    const thumbDir = path.join(__dirname, "assets/images/monsters/thumbs", seasonName);
-
-    await fs.mkdir(imageDir, { recursive: true });
-    await fs.mkdir(thumbDir, { recursive: true });
-    await removeEpisodeImages(imageDir, episodeBaseName);
-    await removeEpisodeImages(thumbDir, episodeBaseName);
-
-    const imagePath = path.join(imageDir, episodeName);
-    const thumbPath = path.join(thumbDir, episodeName);
-    const imageBuffer = await sharp(request.file.buffer, { animated: false })
-      .rotate()
-      .resize({
-        width: 1440,
-        height: 1440,
-        fit: "inside",
-        withoutEnlargement: true
-      })
-      .webp({
-        quality: 82,
-        effort: 4
-      })
-      .toBuffer();
-    const thumbBuffer = await sharp(request.file.buffer, { animated: false })
-      .rotate()
-      .resize({
-        width: 480,
-        height: 270,
-        fit: "inside",
-        withoutEnlargement: true
-      })
-      .webp({
-        quality: 74,
-        effort: 4
-      })
-      .toBuffer();
-
-    await fs.writeFile(imagePath, imageBuffer);
-    await fs.writeFile(thumbPath, thumbBuffer);
-
+    const { imageBuffer, thumbBuffer } = await buildImageBuffers(request.file.buffer);
     const version = Date.now();
-    match.episode.image = `assets/images/monsters/${seasonName}/${episodeName}?v=${version}`;
-    match.episode.thumbnail = `assets/images/monsters/thumbs/${seasonName}/${episodeName}?v=${version}`;
+    const episode = await updateEpisodeImage({
+      params: request.params,
+      seasonName,
+      episodeBaseName,
+      episodeName,
+      imageBuffer,
+      thumbBuffer,
+      version
+    });
 
-    await writeCatalog(catalog);
     response.json({
       ok: true,
-      episode: match.episode,
+      episode,
       sizes: {
         original: request.file.size,
         image: imageBuffer.length,
         thumbnail: thumbBuffer.length
       }
     });
-  }
+  })
 );
+
+app.use((error, _request, response, next) => {
+  console.error(error);
+
+  if (response.headersSent) {
+    next(error);
+    return;
+  }
+
+  response.status(500).json({ error: "服务器出错，请稍后再试" });
+});
 
 app.use(express.static(__dirname));
 
 app.listen(port, host, () => {
   console.log(`Natsumebook server: http://${host}:${port}/`);
   console.log(`Natsumebook admin: http://${host}:${port}/admin`);
+  console.log(`Data source: ${hasSupabaseConfig() ? "Supabase" : "local JSON"}`);
 });
 
 async function loadEnv() {
@@ -218,7 +199,98 @@ function readCookie(cookieHeader, name) {
     ?.slice(name.length + 1);
 }
 
+function asyncHandler(handler) {
+  return (request, response, next) => {
+    Promise.resolve(handler(request, response, next)).catch(next);
+  };
+}
+
 async function readCatalog() {
+  if (hasSupabaseConfig()) {
+    return readSupabaseCatalog();
+  }
+
+  const catalogText = await fs.readFile(catalogPath, "utf8");
+  return JSON.parse(catalogText);
+}
+
+async function readEpisode(params) {
+  if (hasSupabaseConfig()) {
+    return readSupabaseEpisode(params);
+  }
+
+  const catalog = await readLocalCatalog();
+  return findEpisode(catalog, params);
+}
+
+async function updateEpisodeText(params, values) {
+  if (hasSupabaseConfig()) {
+    return updateSupabaseEpisode(params, values);
+  }
+
+  const catalog = await readLocalCatalog();
+  const match = findEpisode(catalog, params);
+
+  if (!match) {
+    return null;
+  }
+
+  match.episode.title = values.title;
+  match.episode.name = values.name;
+  await writeCatalog(catalog);
+  return match.episode;
+}
+
+async function updateEpisodeImage({
+  params,
+  seasonName,
+  episodeBaseName,
+  episodeName,
+  imageBuffer,
+  thumbBuffer,
+  version
+}) {
+  if (hasSupabaseConfig()) {
+    const imagePath = `${seasonName}/${episodeName}`;
+    const thumbPath = `thumbs/${seasonName}/${episodeName}`;
+
+    await uploadSupabaseObject(imagePath, imageBuffer);
+    await uploadSupabaseObject(thumbPath, thumbBuffer);
+
+    return updateSupabaseEpisode(params, {
+      image_url: buildSupabasePublicUrl(imagePath, version),
+      thumbnail_url: buildSupabasePublicUrl(thumbPath, version),
+      image_path: imagePath,
+      thumbnail_path: thumbPath
+    });
+  }
+
+  const catalog = await readLocalCatalog();
+  const localMatch = findEpisode(catalog, params);
+
+  if (!localMatch) {
+    return null;
+  }
+
+  const imageDir = path.join(__dirname, "assets/images/monsters", seasonName);
+  const thumbDir = path.join(__dirname, "assets/images/monsters/thumbs", seasonName);
+
+  await fs.mkdir(imageDir, { recursive: true });
+  await fs.mkdir(thumbDir, { recursive: true });
+  await removeEpisodeImages(imageDir, episodeBaseName);
+  await removeEpisodeImages(thumbDir, episodeBaseName);
+
+  await fs.writeFile(path.join(imageDir, episodeName), imageBuffer);
+  await fs.writeFile(path.join(thumbDir, episodeName), thumbBuffer);
+
+  localMatch.episode.image = `assets/images/monsters/${seasonName}/${episodeName}?v=${version}`;
+  localMatch.episode.thumbnail = `assets/images/monsters/thumbs/${seasonName}/${episodeName}?v=${version}`;
+
+  await writeCatalog(catalog);
+  return localMatch.episode;
+}
+
+async function readLocalCatalog() {
   const catalogText = await fs.readFile(catalogPath, "utf8");
   return JSON.parse(catalogText);
 }
@@ -236,6 +308,171 @@ function findEpisode(catalog, params) {
   const episode = season?.episodes?.find((item) => Number(item.episode) === episodeNumber);
 
   return season && episode ? { season, episode } : null;
+}
+
+async function buildImageBuffers(sourceBuffer) {
+  const imageBuffer = await sharp(sourceBuffer, { animated: false })
+    .rotate()
+    .resize({
+      width: 1440,
+      height: 1440,
+      fit: "inside",
+      withoutEnlargement: true
+    })
+    .webp({
+      quality: 82,
+      effort: 4
+    })
+    .toBuffer();
+  const thumbBuffer = await sharp(sourceBuffer, { animated: false })
+    .rotate()
+    .resize({
+      width: 480,
+      height: 270,
+      fit: "inside",
+      withoutEnlargement: true
+    })
+    .webp({
+      quality: 74,
+      effort: 4
+    })
+    .toBuffer();
+
+  return { imageBuffer, thumbBuffer };
+}
+
+function hasSupabaseConfig() {
+  return Boolean(supabaseUrl && supabaseServiceRoleKey);
+}
+
+async function readSupabaseCatalog() {
+  const rows = await supabaseRequest(
+    "读取图鉴数据失败",
+    `/rest/v1/episodes?select=season_number,episode_number,title,name,image_url,thumbnail_url&order=season_number.asc,episode_number.asc`
+  );
+  const catalog = [];
+
+  rows.forEach((row) => {
+    let season = catalog.find((item) => item.season === row.season_number);
+
+    if (!season) {
+      season = { season: row.season_number, episodes: [] };
+      catalog.push(season);
+    }
+
+    season.episodes.push(normalizeSupabaseEpisode(row));
+  });
+
+  return catalog;
+}
+
+async function readSupabaseEpisode(params) {
+  const { seasonNumber, episodeNumber } = parseEpisodeParams(params);
+  const rows = await supabaseRequest(
+    "读取单集数据失败",
+    `/rest/v1/episodes?select=season_number,episode_number,title,name,image_url,thumbnail_url&season_number=eq.${seasonNumber}&episode_number=eq.${episodeNumber}&limit=1`
+  );
+  const row = rows[0];
+
+  if (!row) {
+    return null;
+  }
+
+  return {
+    season: { season: row.season_number },
+    episode: normalizeSupabaseEpisode(row)
+  };
+}
+
+async function updateSupabaseEpisode(params, values) {
+  const { seasonNumber, episodeNumber } = parseEpisodeParams(params);
+  const rows = await supabaseRequest(
+    "保存单集数据失败",
+    `/rest/v1/episodes?season_number=eq.${seasonNumber}&episode_number=eq.${episodeNumber}&select=season_number,episode_number,title,name,image_url,thumbnail_url`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Prefer: "return=representation"
+      },
+      body: JSON.stringify(values)
+    }
+  );
+
+  return rows[0] ? normalizeSupabaseEpisode(rows[0]) : null;
+}
+
+async function uploadSupabaseObject(objectPath, buffer) {
+  await supabaseRequest(
+    "上传图片到 Supabase 失败",
+    `/storage/v1/object/${encodeURIComponent(supabaseStorageBucket)}/${encodeObjectPath(objectPath)}`,
+    {
+      method: "POST",
+      headers: {
+        "Cache-Control": "31536000",
+        "Content-Type": "image/webp",
+        "x-upsert": "true"
+      },
+      body: buffer
+    }
+  );
+}
+
+async function supabaseRequest(label, endpoint, options = {}) {
+  const response = await fetch(`${supabaseUrl}${endpoint}`, {
+    ...options,
+    headers: {
+      apikey: supabaseServiceRoleKey,
+      Authorization: `Bearer ${supabaseServiceRoleKey}`,
+      ...options.headers
+    }
+  });
+  const text = await response.text();
+  const body = parseResponseBody(text);
+
+  if (!response.ok) {
+    const message = typeof body === "string" ? body : JSON.stringify(body);
+    throw new Error(`${label}: HTTP ${response.status} ${message}`);
+  }
+
+  return body;
+}
+
+function parseResponseBody(text) {
+  if (!text) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    return text;
+  }
+}
+
+function normalizeSupabaseEpisode(row) {
+  return {
+    episode: row.episode_number,
+    title: row.title,
+    name: row.name || "",
+    thumbnail: row.thumbnail_url || placeholderMonsterThumb,
+    image: row.image_url || placeholderMonster
+  };
+}
+
+function parseEpisodeParams(params) {
+  return {
+    seasonNumber: Number(params.season),
+    episodeNumber: Number(params.episode)
+  };
+}
+
+function buildSupabasePublicUrl(objectPath, version) {
+  return `${supabaseUrl}/storage/v1/object/public/${encodeURIComponent(supabaseStorageBucket)}/${encodeObjectPath(objectPath)}?v=${version}`;
+}
+
+function encodeObjectPath(objectPath) {
+  return objectPath.split("/").map(encodeURIComponent).join("/");
 }
 
 function pad(value) {
