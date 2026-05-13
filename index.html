@@ -1080,7 +1080,9 @@
     const assets = {
       revealVideo: "assets/videos/reveal-book.webm",
       placeholderMonster: "assets/images/monsters/placeholder.png",
-      placeholderMonsterThumb: "assets/images/monsters/thumbs/placeholder.webp"
+      placeholderMonsterThumb: "assets/images/monsters/thumbs/placeholder.webp",
+      catalogApi: "https://natsume.koyeb.app/api/catalog",
+      localCatalog: "data/catalog.json"
     };
 
     const defaultCatalogData = [
@@ -1162,30 +1164,40 @@
 
     async function loadCatalog() {
       try {
-        const response = await fetch("data/catalog.json", { cache: "no-store" });
-
-        if (!response.ok) {
-          throw new Error(`Catalog request failed: ${response.status}`);
-        }
-
-        const nextCatalogData = await response.json();
-
-        if (!Array.isArray(nextCatalogData)) {
-          throw new Error("Catalog data must be an array");
-        }
-
-        catalogData = nextCatalogData.map((seasonData) => {
-          const season = Number(seasonData.season);
-          const episodes = Array.isArray(seasonData.episodes) ? seasonData.episodes : [];
-
-          return {
-            season,
-            episodes: episodes.map((episodeData) => normalizeEpisode(season, episodeData))
-          };
-        });
+        catalogData = normalizeCatalogData(await fetchCatalogData(assets.catalogApi));
       } catch (error) {
-        catalogData = defaultCatalogData;
+        try {
+          catalogData = normalizeCatalogData(await fetchCatalogData(assets.localCatalog));
+        } catch (fallbackError) {
+          catalogData = defaultCatalogData;
+        }
       }
+    }
+
+    async function fetchCatalogData(url) {
+      const response = await fetch(url, { cache: "no-store" });
+
+      if (!response.ok) {
+        throw new Error(`Catalog request failed: ${response.status}`);
+      }
+
+      return response.json();
+    }
+
+    function normalizeCatalogData(nextCatalogData) {
+      if (!Array.isArray(nextCatalogData)) {
+        throw new Error("Catalog data must be an array");
+      }
+
+      return nextCatalogData.map((seasonData) => {
+        const season = Number(seasonData.season);
+        const episodes = Array.isArray(seasonData.episodes) ? seasonData.episodes : [];
+
+        return {
+          season,
+          episodes: episodes.map((episodeData) => normalizeEpisode(season, episodeData))
+        };
+      });
     }
 
     function renderCatalog() {

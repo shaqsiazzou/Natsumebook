@@ -58,6 +58,14 @@ SUPABASE_STORAGE_BUCKET=monster-images
 - Koyeb：Node 后端
 - Supabase：后续迁移图鉴数据与图片存储
 
+前台页面优先从 Koyeb API 读取图鉴数据：
+
+```text
+https://natsume.koyeb.app/api/catalog
+```
+
+请求失败时会回退到本地 `data/catalog.json`。
+
 ## Supabase 初始化
 
 在 Supabase Dashboard 打开 SQL Editor，新建查询，粘贴并运行：
