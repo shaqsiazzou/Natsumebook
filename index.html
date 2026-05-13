@@ -886,17 +886,7 @@
       }
 
       .hero::after {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 1;
-        height: 46%;
-        content: "";
-        pointer-events: none;
-        background:
-          radial-gradient(ellipse at 50% 72%, var(--mobile-transition-glow), transparent 58%),
-          linear-gradient(180deg, transparent 0%, var(--mobile-bottom-fade) 100%);
+        display: none;
       }
 
       .hero-kicker,
@@ -1039,10 +1029,7 @@
         width: 100%;
         margin-top: 0;
         padding: 56px 14px 40px;
-        background:
-          linear-gradient(180deg, var(--mobile-bottom-fade) 0%, transparent 116px),
-          linear-gradient(180deg, var(--mobile-catalog-wash) 0%, transparent 180px),
-          var(--mobile-bg);
+        background: var(--mobile-bg);
       }
 
       .season:first-child {
