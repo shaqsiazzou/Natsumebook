@@ -1038,7 +1038,10 @@
         position: relative;
         margin-top: 0;
         padding-top: 56px;
-        background: var(--mobile-bg);
+        background:
+          linear-gradient(180deg, var(--mobile-bottom-fade) 0%, transparent 116px),
+          linear-gradient(180deg, var(--mobile-catalog-wash) 0%, transparent 180px),
+          var(--mobile-bg);
       }
 
       .season:first-child {
