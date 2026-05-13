@@ -85,10 +85,10 @@ SUPABASE_STORAGE_BUCKET=monster-images
 可选变量：
 
 ```text
-CATALOG_CACHE_TTL_MS=300000
+CATALOG_CACHE_TTL_MS=3600000
 ```
 
-用于调整 `/api/catalog` 后端内存缓存时间，单位毫秒；未设置时默认 5 分钟。
+用于调整 `/api/catalog` 后端内存缓存时间，单位毫秒；未设置时默认 1 小时。
 
 ## 后台功能
 
@@ -108,7 +108,7 @@ CATALOG_CACHE_TTL_MS=300000
 
 ## 性能记录
 
-- 2026-05-13：后端 `/api/catalog` 增加 Node 进程内存缓存，默认 5 分钟；后台编辑文字、上传图片或写入本地 catalog 后会清缓存。
+- 2026-05-13：后端 `/api/catalog` 增加 Node 进程内存缓存，默认 1 小时；后台编辑文字、上传图片或写入本地 catalog 后会清缓存。
 
 ## 部署与数据源
 

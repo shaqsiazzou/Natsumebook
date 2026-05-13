@@ -223,7 +223,7 @@ function parseCatalogCacheTtl(value) {
     return ttl;
   }
 
-  return 5 * 60 * 1000;
+  return 60 * 60 * 1000;
 }
 
 async function readCatalog() {
