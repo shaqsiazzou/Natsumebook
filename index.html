@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>夏目友人帐 妖怪录</title>
   <link rel="preload" href="assets/images/ui/logo-avatar.webp" as="image" type="image/webp" fetchpriority="high">
-  <link rel="preload" href="assets/images/ui/hero-character-user-transparent.webp" as="image" type="image/webp">
+  <link rel="preload" href="assets/videos/hero-welcome.webm" as="video" type="video/webm">
   <link rel="preload" href="assets/videos/reveal-book.webm" as="video" type="video/webm">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -307,7 +307,8 @@
       width: min(100%, 420px);
     }
 
-    .hero-visual img {
+    .hero-visual img,
+    .hero-visual video {
       display: block;
       width: 100%;
       height: auto;
@@ -1006,7 +1007,8 @@
         pointer-events: none;
       }
 
-      .hero-visual img {
+      .hero-visual img,
+      .hero-visual video {
         mask-image: linear-gradient(180deg, #000 0%, #000 78%, transparent 100%);
         -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 78%, transparent 100%);
       }
@@ -1167,7 +1169,9 @@
           <p class="hero-copy">收录每一季每一集的妖怪身影，把那些短暂相逢安静留在纸页之间。</p>
         </div>
         <figure class="hero-visual" aria-hidden="true">
-          <img src="assets/images/ui/hero-character-user-transparent.webp" alt="" width="1080" height="1280">
+          <video class="hero-video" autoplay muted loop playsinline preload="auto" width="720" height="854">
+            <source src="assets/videos/hero-welcome.webm" type="video/webm">
+          </video>
         </figure>
         <div class="scroll-cue-wrap" aria-hidden="true">
           <div class="scroll-cue">
