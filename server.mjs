@@ -19,11 +19,17 @@ const placeholderMonsterThumb = "assets/images/monsters/thumbs/placeholder.webp"
 const supabaseUrl = String(process.env.SUPABASE_URL || "").replace(/\/+$/, "");
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 const supabaseStorageBucket = process.env.SUPABASE_STORAGE_BUCKET || "monster-images";
+const catalogCacheTtlMs = parseCatalogCacheTtl(process.env.CATALOG_CACHE_TTL_MS);
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 30 * 1024 * 1024 }
 });
 const supportedImageTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
+const catalogCache = {
+  data: null,
+  expiresAt: 0,
+  pending: null
+};
 
 const adminPassword = process.env.ADMIN_PASSWORD || "960718";
 const sessionToken = crypto.createHmac("sha256", adminPassword).update("nazumi-admin").digest("hex");
@@ -78,6 +84,7 @@ app.patch("/api/catalog/season/:season/episode/:episode", requireAdmin, asyncHan
     return;
   }
 
+  clearCatalogCache();
   response.json({ ok: true, episode });
 }));
 
@@ -117,6 +124,10 @@ app.post(
       thumbBuffer,
       version
     });
+
+    if (episode) {
+      clearCatalogCache();
+    }
 
     response.json({
       ok: true,
@@ -205,13 +216,53 @@ function asyncHandler(handler) {
   };
 }
 
+function parseCatalogCacheTtl(value) {
+  const ttl = Number(value);
+
+  if (Number.isFinite(ttl) && ttl >= 0) {
+    return ttl;
+  }
+
+  return 5 * 60 * 1000;
+}
+
 async function readCatalog() {
+  const now = Date.now();
+
+  if (catalogCache.data && catalogCache.expiresAt > now) {
+    return catalogCache.data;
+  }
+
+  if (catalogCache.pending) {
+    return catalogCache.pending;
+  }
+
+  catalogCache.pending = readFreshCatalog()
+    .then((catalog) => {
+      catalogCache.data = catalog;
+      catalogCache.expiresAt = Date.now() + catalogCacheTtlMs;
+      return catalog;
+    })
+    .finally(() => {
+      catalogCache.pending = null;
+    });
+
+  return catalogCache.pending;
+}
+
+async function readFreshCatalog() {
   if (hasSupabaseConfig()) {
     return readSupabaseCatalog();
   }
 
   const catalogText = await fs.readFile(catalogPath, "utf8");
   return JSON.parse(catalogText);
+}
+
+function clearCatalogCache() {
+  catalogCache.data = null;
+  catalogCache.expiresAt = 0;
+  catalogCache.pending = null;
 }
 
 async function readEpisode(params) {
@@ -299,6 +350,7 @@ async function writeCatalog(catalog) {
   const tmpPath = `${catalogPath}.tmp`;
   await fs.writeFile(tmpPath, `${JSON.stringify(catalog, null, 2)}\n`);
   await fs.rename(tmpPath, catalogPath);
+  clearCatalogCache();
 }
 
 function findEpisode(catalog, params) {
