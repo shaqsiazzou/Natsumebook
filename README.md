@@ -89,6 +89,10 @@ SUPABASE_STORAGE_BUCKET=monster-images
 - 上传图片自动使用 Sharp 压缩为 WebP
 - 自动生成列表缩略图
 
+## 前台 UI 记录
+
+- 2026-05-13：图鉴季节列表改为可折叠；第一季默认展开，第二季到第七季默认折叠。
+
 ## 部署与数据源
 
 - Cloudflare Pages：前台静态页面
@@ -102,6 +106,8 @@ https://natsume.koyeb.app/api/catalog
 ```
 
 请求失败时会回退到本地 `data/catalog.json`。
+
+前台静态页面改动推送到 GitHub `main` 后，会触发 Cloudflare Pages 自动更新。
 
 Koyeb 使用 Buildpack 自动识别 Node 项目即可。通常不需要自定义构建命令或运行命令；如果需要手动填写，运行命令用：
 
